@@ -22,6 +22,20 @@ function App() {
     setInputText("");
   }
 
+  // delete item by filtering the array (item)
+  // excluding the item that was clicked (id)
+  function deleteItem(id){
+    // set items / refresh the array
+    setItems((prevItems) => {
+      // filter previous items & excluding selected items (id)
+      return prevItems.filter(
+        (item, index) => {
+          return index !== id;
+        }
+      );
+    });
+  }
+
   return (
     <div className="container">
       <div className="heading">
@@ -36,11 +50,14 @@ function App() {
       <div>
         <ul>
           {/* DISPLAY ARRAY ITEMS USING MAP FUNCTION*/}
-          {items.map( todoitem => 
-            <ToDoItem
-              text={todoitem}
-            />
-          )}
+          {items.map( (todoitem, index) => (
+              <ToDoItem
+                key={index}
+                id={index}
+                onChecked={deleteItem}
+                text={todoitem}
+              />))
+          }
         </ul>
       </div>
     </div>
